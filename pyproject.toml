@@ -4,6 +4,9 @@ requires-python = ">3.12"
 version = "2026.10.15"
 
 dependencies = [
-    "https://github.com/perda-dataset/perda-loader.git",
-    "litlogger"
+    "litlogger",
+    "perda-loader",
 ]
+
+[tool.uv.sources]
+perda-loader = { git = "https://github.com/perda-dataset/perda-loader" }
