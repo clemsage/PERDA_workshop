@@ -1,0 +1,8 @@
+[project]
+name = "perda_hackathon"
+version = "2026.10.15"
+
+dependencies = [
+    "https://github.com/perda-dataset/perda-loader.git",
+    "litlogger"
+]
