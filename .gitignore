@@ -1,0 +1,6 @@
+.venv/
+
+output/
+data/
+dataset.zip
+models/
