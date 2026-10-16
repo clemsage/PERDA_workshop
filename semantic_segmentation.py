@@ -22,10 +22,11 @@ def main():
         "--pre-trained-weights",
         type=str,
         default=None,
-        help="Pre-trained weights to initialize the model with. If set to None, its weights are randomly initialized."
+        help="""Pre-trained weights to initialize the model with. This must be a valid torcheo.models name,
+         e.g. `ResNet18_Weights.SENTINEL2_ALL_MOCO`. Check https://docs.torchgeo.org/en/stable/api/models.html
+         for the list of available weights. If set to None, its weights are randomly initialized."""
     )
-    # TODO: Benchmark other Sentinel-2 pre-trained weights available on TorchGeo: https://docs.torchgeo.org/en/stable/api/models.html#sentinel-2
-    # and compare against randomly initialized weights
+    # TODO: Benchmark other Sentinel-2 pre-trained weights available on TorchGeo and compare against randomly initialized weights
     # Also consider comparing with pre-trained ImageNet weights
 
     args = parser.parse_args()
@@ -46,10 +47,10 @@ def main():
         model="unet",
         backbone="resnet18",
         weights=args.pre_trained_weights,
-        in_channels=13,
+        in_channels=13 if args.pre_trained_weights else len(Perda.all_bands),  # TODO: automatically set in_channels value for chosen pre trained weights
         num_classes=len(Perda.classes),
         ignore_index=Perda.ignore_index,
-        freeze_backbone=True,
+        freeze_backbone=True if args.pre_trained_weights else False,
     )
 
     filename = f"Unet_ResNet18_{args.pre_trained_weights}_weights" if args.pre_trained_weights else "Unet_ResNet18_random_weights"

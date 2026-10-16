@@ -3,8 +3,7 @@
 
 # Commentaires SBATCH permettant de définir les paramètres par défaut de lancement :
 #SBATCH --job-name=semantic_segmentation
-#SBATCH --gres gpu:2
-#SBATCH --constraint 2080
+#SBATCH --gres gpu:1
 #SBATCH --cpus-per-task 4
 #SBATCH --mem 32G
 #SBATCH --time=02:00:00
@@ -13,4 +12,4 @@
 #SBATCH --output=output/%x-%j.txt
 
  # Exécution du script
-uv run semantic_segmentation.py --max-epochs 50
+uv run semantic_segmentation.py --max-epochs 50 --pre-trained-weights ResNet18_Weights.SENTINEL2_ALL_MOCO
