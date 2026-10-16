@@ -1,17 +1,16 @@
 #!/bin/bash -l
 # L'argument '-l' est indispensable pour bénéficier des directives de votre .bashrc
 
-# On peut éventuellement placer ici les commentaires SBATCH permettant de définir les paramètres par défaut de lancement :
+# Commentaires SBATCH permettant de définir les paramètres par défaut de lancement :
+#SBATCH --job-name=semantic_segmentation
 #SBATCH --gres gpu:2
 #SBATCH --constraint 2080
 #SBATCH --cpus-per-task 4
 #SBATCH --mem 32G
+#SBATCH --time=02:00:00
 #SBATCH --mail-type FAIL,END
 #SBATCH --mail-user clement.sage@univ-ubs.fr
+#SBATCH --output=output/%x-%j.txt
 
-# Si besoin, spécification de la version CUDA mise à disposition sur le cluster
-# setcuda 12.2
-
-# Exécution du script habituellement utilisé, on utilise la variable CUDA_VISIBLE_DEVICES qui contient la liste des GPU logiques actuellement réservés (toujours à partir de 0)
-
-uv run semantic_segmentation.py
+ # Exécution du script
+uv run semantic_segmentation.py --max-epochs 50
